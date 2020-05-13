@@ -19,18 +19,18 @@
 
   <div class="col-16-16 no-padding" >
     <div class="col-7-16" style="height: 400px;border: 1px solid #1a1a1a">
-      <div class="f18">进出校统计</div>
+      <div class="f18">{{$t('zhiHuiSchool.jieduantongji.jinchuxiaotongji')}}</div>
       <div class="cb_school col-16-16" style="height: 360px"></div>
     </div>
     <div class="col-1-16" style="height: 400px"></div>
     <div class="col-8-16" style="height: 400px;border: 1px solid #1a1a1a">
-      <div class="f18">考勤排行</div>
+      <div class="f18">{{$t('zhiHuiSchool.jieduantongji.kaoqinpaihang')}}</div>
       <div class="zhihui_table kaoqin_table">
         <div class="col-16-16  f16 l_h40" v-for="(grade_kaoQin,i) in kaoQinInfo">
           <div class="col-2-18 t_c">{{i}}</div>
           <div class="col-4-18 t_c">初一一班</div>
           <div class="col-4-18 t_c">出勤 <span>30</span></div>
-          <div class="col-4-18 t_c">迟到 <span>30</span></div>
+          <div class="col-4-18 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.chidao')}}<span>30</span></div>
           <div class="col-4-18 t_c">缺勤 <span>30</span></div>
         </div>
 
@@ -40,10 +40,10 @@
   <div class="col-16-16 no-padding mt20" style="border: 1px solid #1a1a1a">
     <div class="col-8-16 tiwentongji" >
       <div class="oneline no-border">
-        <div >体温统计</div>
+        <div >{{$t('zhiHuiSchool.all_share.tiwentongji')}}</div>
       </div>
       <div class="oneline">
-        <div>累计测试人数
+        <div>{{$t('zhiHuiSchool.jieduantongji.leijiceshirenshu')}}
         </div>
         <div>&nbsp;</div>
         <div>{{totalTestPeople}}人
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="oneline">
-        <div>在校生人数
+        <div>{{$t('zhiHuiSchool.jieduantongji.zaixiaoshengrenshu')}}
         </div>
         <div>&nbsp;</div>
         <div>{{inSchoolPeople}}人
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="oneline">
-        <div>累计异常人数
+        <div>{{$t('zhiHuiSchool.jieduantongji.leijiyichangrenshu')}}
         </div>
         <div>&nbsp;</div>
         <div>{{totalBadPeople}}人
@@ -76,12 +76,12 @@
         </div>
       </div>
       <div class="oneline no-border">
-        <div >体温异常班级信息</div>
+        <div >{{$t('zhiHuiSchool.jieduantongji.tiwyichangbanji')}}</div>
       </div>
       <div class="zhihui_table">
         <div class="col-16-16   f16 l_h30">
           <div class="col-8-16 t_c">班级</div>
-          <div class="col-8-16 t_c">人数</div>
+          <div class="col-8-16 t_c">{{$t('zhiHuiSchool.jieduantongji.renshu')}}</div>
         </div>
         <div class="col-16-16 normal_back_white  f16 l_h30" v-for="(grade_info , i ) in badTemperClass">
           <div class="col-8-16 t_c">{{grade_info.class_n}}</div>
@@ -100,7 +100,7 @@
         <form >
         </form>
         <a style="height:30px;width: 49%;">&nbsp;</a>
-        <a class="queding btn themeBtn t_c" style="width: 49%;margin: 0 auto;display: block;overflow: hidden">确定</a>
+        <a class="queding btn themeBtn t_c" style="width: 49%;margin: 0 auto;display: block;overflow: hidden">{{$t('message.queding')}}</a>
       </div>
     </div>
   </div>

@@ -4,37 +4,28 @@
 
     <div style="clear:both;"></div>
     <div class="choosegrade">
-      <span>选择年级:</span>
+      <span>{{$t('zhiHuiSchool.jiechuxiaojilu.xuanzenianji')}}:</span>
       <ul>
-        <li class="focus">一年级</li>
-        <li>二年级</li>
-        <li>三年级</li>
-        <li>四年级</li>
-        <li>五年级</li>
-        <li>六年级</li>
-        <li>全校</li>
+        <li v-for="sing in grade_num" :class="sing==grade_xuanzhong?'focus':''">{{sing}}{{$t('zhiHuiSchool.jiechuxiaojilu.nianji')}}</li>
+        <li>{{$t('zhiHuiSchool.jiechuxiaojilu.quanxiao')}}</li>
       </ul>
     </div>
     <div class="chooseclass">
-      <span>选择班级:</span>
+      <span>{{$t('zhiHuiSchool.jiechuxiaojilu.xuanzebanji')}}:</span>
       <ul>
-        <li class="focus">一年级一班</li>
-        <li>一年级一班</li>
-        <li>一年级一班</li>
-        <li>一年级一班</li>
-        <li>一年级一班</li>
-        <li>一年级一班</li>
-        <li>全校</li>
+        <li v-for="sing in grade_num" :class="sing==grade_xuanzhong?'focus':''">{{sing}}{{$t('zhiHuiSchool.jiechuxiaojilu.nianji')}}一班</li>
+
+        <li>{{$t('zhiHuiSchool.jiechuxiaojilu.quanxiao')}}</li>
       </ul>
     </div>
     <div class="choosedata">
-      <span>选择日期:</span>
+      <span>{{$t('zhiHuiSchool.jiechuxiaojilu.xuanzeriqi')}}:</span>
       <div class="ml25 f_l">
         <div class="block">
           <el-date-picker
             v-model="value1"
             type="datetime"
-            placeholder="选择日期时间">
+            :placeholder="$t('zhiHuiSchool.jiechuxiaojilu.xuanzeriqishijian')">
           </el-date-picker>
         </div>
       </div>
@@ -44,10 +35,10 @@
       <div class="ktbg-content mt20 clearfix">
         <div class="title_zhihui t_l">
           <div class="col-8-16">
-            <span class="mr20 ">进出校记录</span>
+            <span class="mr20 ">{{$t('zhiHuiSchool.all_share.jichuxiaojilu')}}</span>
           </div>
           <div class="col-8-16 t_r">
-            <span class="mr20 kaoqinshezhi" >考勤设置</span>
+            <span class="mr20 kaoqinshezhi" >{{$t('zhiHuiSchool.jiechuxiaojilu.kaoqinshezhi')}}</span>
           </div>
 
         </div>
@@ -59,29 +50,29 @@
       <div class="left">
         <div class="zhihui_table">
           <div class="col-16-16  col_hei f16">
-            <div class="col-2-16 t_c">班级</div>
-            <div class="col-2-16 t_c">学号</div>
-            <div class="col-2-16 t_c">姓名</div>
-            <div class="col-2-16 t_c">性别</div>
-            <div class="col-3-16 t_c">行为</div>
-            <div class="col-3-16 t_c">时间</div>
-            <div class="col-2-16 t_c">体温</div>
+            <div class="col-2-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.banji')}}</div>
+            <div class="col-2-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.xuehao')}}</div>
+            <div class="col-2-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.xingming')}}</div>
+            <div class="col-2-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.xingbie')}}</div>
+            <div class="col-3-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.xingwei')}}</div>
+            <div class="col-3-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.shijian')}}</div>
+            <div class="col-2-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.tiwen')}}</div>
           </div>
           <div class="col-16-16 normal_back_white col_hei f16">
-            <div class="col-2-16 t_c">一年级一班</div>
+            <div class="col-2-16 t_c">一{{$t('zhiHuiSchool.jiechuxiaojilu.nianji')}}一班</div>
             <div class="col-2-16 t_c">1</div>
             <div class="col-2-16 t_c">王可可</div>
             <div class="col-2-16 t_c">男</div>
-            <div class="col-3-16 t_c">进校</div>
+            <div class="col-3-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.ruxiao')}}</div>
             <div class="col-3-16 t_c">05-05 8:24</div>
             <div class="col-2-16 t_c">37℃</div>
           </div>
           <div class="col-16-16 normal_back_white col_hei f16">
-            <div class="col-2-16 t_c">一年级一班</div>
+            <div class="col-2-16 t_c">一{{$t('zhiHuiSchool.jiechuxiaojilu.nianji')}}一班</div>
             <div class="col-2-16 t_c">1</div>
             <div class="col-2-16 t_c">王可可</div>
             <div class="col-2-16 t_c">男</div>
-            <div class="col-3-16 t_c">进校</div>
+            <div class="col-3-16 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.ruxiao')}}</div>
             <div class="col-3-16 t_c">05-05 8:24</div>
             <div class="col-2-16 t_c">37℃</div>
           </div>
@@ -89,7 +80,7 @@
       </div>
       <div class="right">
         <div class="title_zhihui">
-          <span class=" t_l">考勤统计</span>
+          <span class=" t_l">{{$t('zhiHuiSchool.jiechuxiaojilu.kaoqintongji')}}</span>
         </div>
 
         <div class="pie-chart-box-zhihui"></div>
@@ -101,7 +92,7 @@
         <div class="alert-div form-box back_white animated fadeInDownBig" style="margin-top: -161.5px;">
           <form id="loadRealia" action="loadRealiaExcel.do" method="post" enctype="multipart/form-realia">
             <div class="form-head t_r"><a class="close-btn f18" href="javascript:;">×</a></div>
-            <h3 class="form-title t_c">进出校考勤设置</h3>
+            <h3 class="form-title t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.jinchuxiaokaoqinshezhi')}}</h3>
             <div class="form-content ">
               <div class="form-inline clearfix mt10 file-root">
                 <div class="col-6-32 no-padding t_c">上午考勤</div>
@@ -116,18 +107,18 @@
                 <div class="col-12-32 no-padding"><input type="time"></div>
               </div>
               <div class="form-inline clearfix mt10 file-root">
-                <div class="col-6-32 no-padding t_c">迟到设置</div>
-                <div class="col-6-32 no-padding t_c">晚于</div>
+                <div class="col-6-32 no-padding t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.chidao')}}{{$t('zhiHuiSchool.jiechuxiaojilu.shizhi')}}</div>
+                <div class="col-6-32 no-padding t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.wanyu')}}</div>
                 <div class="col-12-32 no-padding"><input type="time"></div>
               </div>
               <div class="form-inline clearfix mt10 file-root">
-                <div class="col-6-32 no-padding t_c">早退设置</div>
-                <div class="col-6-32 no-padding t_c">早于</div>
+                <div class="col-6-32 no-padding t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.zaotui')}}{{$t('zhiHuiSchool.jiechuxiaojilu.shizhi')}}</div>
+                <div class="col-6-32 no-padding t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.zaoyu')}}</div>
                 <div class="col-12-32 no-padding"><input type="time"></div>
               </div>
 
               <div class="form-line submitBtn mt10 clearfix">
-                <a href="javascript:;" class="queding blockBtn themeBtn form-confirm">确定</a>
+                <a href="javascript:;" class="queding blockBtn themeBtn form-confirm">{{$t('message.queding')}}</a>
               </div>
             </div>
           </form>
@@ -146,16 +137,19 @@
     name: 'HelloWorld',
     data () {
       return {
+        picker_input:this.$t('zhiHuiSchool.jiechuxiaojilu.xuanzeriqishijian'),
+        grade_xuanzhong:'一',
+        grade_num:['一','二','三','四','五','六'],
         msg: 'Welcome to Your Vue.js App',
         time:['7:30','8:00','8:30','9:00','9:30','10:00','10:30',
           '14:30','15:00','15:30','16:00','16:30'],
         data_inSchool:[11, 11, 15, 13, 12, 13, 10,11, 11, 15, 13, 12],
         data_outSchool:[-1, -2, -2, -5, -3, -2, 0,-1, -2, -2, -5, -3],
         piedata:[
-          {value:666, name:'正常'},
-          {value:110, name:'早退'},
-          {value:134, name:'缺勤'},
-          {value:135, name:'迟到'}
+          {value:666, name:this.$t('zhiHuiSchool.jiechuxiaojilu.zhengchang')},
+          {value:110, name:this.$t('zhiHuiSchool.jiechuxiaojilu.zaotui')},
+          {value:134, name:this.$t('zhiHuiSchool.jiechuxiaojilu.queqin')},
+          {value:135, name:this.$t('zhiHuiSchool.jiechuxiaojilu.chidao')}
         ],
         value1:''
       }
@@ -195,7 +189,7 @@
             }
           },
           legend: {
-            data:['入校','出校']
+            data:[this.$t('zhiHuiSchool.jiechuxiaojilu.ruxiao'),this.$t('zhiHuiSchool.jiechuxiaojilu.chuxiao')]
           },
           grid:{
             left:'5%',

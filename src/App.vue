@@ -13,15 +13,15 @@
         <ul class="menu-list f16">
           <li class="current">
             <a href="" class="">
-              <i class="icon-home">&nbsp;</i>智慧校园</a>
+              <i class="icon-home">&nbsp;</i>{{$t('zhiHuiSchool.all_share.zhihuixiaoyuan')}}</a>
           </li>
           <li class="">
             <a href="" class="">
-              <i class="icon-group">&nbsp;</i>教师管理</a>
+              <i class="icon-group">&nbsp;</i>{{$t('zhiHuiSchool.all_share.jiaoshigaunli')}}</a>
           </li>
           <li class="">
             <a href="" class="">
-              <i class="icon-teachManage">&nbsp;</i>班级管理</a>
+              <i class="icon-teachManage">&nbsp;</i>{{$t('zhiHuiSchool.all_share.banjiguanli')}}</a>
           </li>
  <!--         <li class="">
             <a href="" class="">
@@ -35,15 +35,15 @@
         <ul class="bottom-menu menu-list f16">
           <li class="">
             <a href="" class="">
-              <i class="icon-add">&nbsp;</i>收藏</a>
+              <i class="icon-add">&nbsp;</i>{{$t('zhiHuiSchool.all_share.shoucang')}}</a>
           </li>
           <li class="">
             <a href="" class="">
-              <i class="icon-setting">&nbsp;</i>设置</a>
+              <i class="icon-setting">&nbsp;</i>{{$t('zhiHuiSchool.all_share.shezhi')}}</a>
           </li>
           <li class="">
             <a href="" class="">
-              <i class="icon-back">&nbsp;</i>返回启动页</a>
+              <i class="icon-back">&nbsp;</i>{{$t('zhiHuiSchool.all_share.fanhuiqidongye')}}</a>
           </li>
         </ul>
       </div>
@@ -51,22 +51,22 @@
         <div class="page-head">
           <div class="bread-nav-box txt_w">
             <a href="javascript:;">
-              <b>智慧校园</b>
+              <b>{{$t('zhiHuiSchool.all_share.zhihuixiaoyuan')}}</b>
             </a>
 
           </div>
           <div class="head-menu">
             <ul class="head-menu-ul f16">
               <li class="head-menu-item">
-                <a href="javascript:;" class="txt_w">退出</a>
+                <a href="javascript:;" class="txt_w">{{$t('zhiHuiSchool.all_share.zhanghuxinxi')}}</a>
               </li>
               <li class="head-menu-item">
-                <a href="javascript:;" class="txt_w">账户信息
+                <a href="javascript:;" class="txt_w">{{$t('zhiHuiSchool.all_share.tuichu')}}
                   <i class="icon-hehe"></i>
                 </a>
               </li>
               <li class="head-menu-item">
-                <a href="javascript:;" class="txt_w">欢迎页</a>
+                <a href="javascript:;" class="txt_w">{{$t('zhiHuiSchool.all_share.huanyinye')}}</a>
               </li>
             </ul>
           </div>
@@ -74,16 +74,16 @@
         <div class="right-section" v-slimscroll="options">
           <div class="healthyChart" style="padding: 0">
             <div class="choosee">
-              <router-link tag="a" class="btn grayBtn" to="jinchuSchool">进出校记录</router-link>
-              <router-link tag="a" class="btn grayBtn" to="jieduanVital">阶段统计</router-link>
-              <router-link tag="a" class="btn grayBtn" to="temperatureVital">体温统计</router-link>
+              <router-link tag="a" class="btn grayBtn" to="jinchuSchool">{{$t('zhiHuiSchool.all_share.jichuxiaojilu')}}</router-link>
+              <router-link tag="a" class="btn grayBtn" to="jieduanVital">{{$t('zhiHuiSchool.all_share.jieduantongji')}}</router-link>
+              <router-link tag="a" class="btn grayBtn" to="temperatureVital">{{$t('zhiHuiSchool.all_share.tiwentongji')}}</router-link>
             </div>
-           <!-- <div class="col-16-16 t_c f16">
+            <div class="col-16-16 t_c f16">
 
-              <a style="padding: 0 15px;border-right: 1px solid #cfcfcf" v-on:click="toSimpleCh" >中文简体</a>
-              <a style="padding: 0 15px" v-on:click="toCh">中文繁体</a>
+              <a style="padding: 0 15px;border-right: 1px solid #cfcfcf" v-on:click="toSimpleCh" >{{$t('message.cn')}}</a>
+              <a style="padding: 0 15px" v-on:click="toCh">{{$t('message.tw')}}</a>
 
-            </div>-->
+            </div>
             <router-view/>
 
           </div>
@@ -109,6 +109,7 @@ export default {
       options: {
         height: '95%',
         size: 0,
+
         // padding:'0 0 50px 0'
 
       }
@@ -117,10 +118,12 @@ export default {
   , methods: {
 
     toCh() {
-      this.jianfan.toChinese()
+      this.$i18n.locale = 'tw'
+      localStorage.lang = 'tw'
     },
     toSimpleCh() {
-      this.jianfan.toSimpleChinese()
+      this.$i18n.locale = 'cn'
+      localStorage.lang = 'cn'
     }
   }
 }

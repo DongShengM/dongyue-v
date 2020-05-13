@@ -78,7 +78,7 @@
     </div>
     <div class="right">
       <div class="title_zhihui">
-        <span class=" t_l">考勤统计</span>
+        <span class=" t_l">考勤统计{{$t('message.hello')}}</span>
       </div>
 
       <div class="pie-chart-box-zhihui"></div>

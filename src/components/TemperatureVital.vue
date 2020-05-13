@@ -3,7 +3,7 @@
     <div style="clear:both;"></div>
 
     <div class="zhihuiBox new-zhui no-padding">
-      <div class="col-2-16"><h1>体温监控</h1></div>
+      <div class="col-2-16"><h1>{{$t('zhiHuiSchool.tiwentongji.tiwenjiankong')}}</h1></div>
       <div class="col-8-16">
         <el-tooltip content="刷新" placement="bottom-start" effect="light">
           <i class="el-icon-refresh-right tem-icon color-blue" @click="updata" :class="{icon_re:isrefresh}"></i>
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="col-1-16 l_h40 ">
-        <el-tooltip content="体温异常学生名单" placement="bottom-start" effect="light">
+        <el-tooltip :content="$t('zhiHuiSchool.tiwentongji.tiwenyicha')" placement="bottom-start" effect="light">
           <i class="icon-zhongkaochengji tem-icon color-pink" @click="dialogTableVisible = true"></i>
 
         </el-tooltip>
@@ -92,36 +92,36 @@
         </div>
       </div>
     </div>
-    <el-dialog title="体温监控设置" :visible.sync="dialogsettingVisible" center>
+    <el-dialog :title="$t('zhiHuiSchool.tiwentongji.tiwenjiankong')+$t('message.setup')" :visible.sync="dialogsettingVisible" center>
       <div class="yujin_div" style="width: 80%;margin: 0 auto">
         <div class="label_info">
           <div class="tooltip_kuai">
-            体温预警： <el-input v-model="input_d" placeholder="请输入内容" style="width: 60%"></el-input>
+            {{$t('zhiHuiSchool.tiwentongji.tiwenyujin')}}： <el-input v-model="input_d" placeholder="请输入内容" style="width: 60%"></el-input>
           </div>
           <div class="yujin_info ">
-            <span>超过体温预警值会提示</span>
+            <span>{{$t('zhiHuiSchool.tiwentongji.uptiwentishi')}}</span>
           </div>
         </div>
         <div class="label_info">
           <div class="tooltip_kuai ">
-            发热预警： <el-input v-model="input_z" placeholder="请输入内容" style="width: 60%"></el-input>
+            {{$t('zhiHuiSchool.tiwentongji.fareyujin')}}： <el-input v-model="input_z" placeholder="请输入内容" style="width: 60%"></el-input>
           </div>
           <div class="yujin_info">
-            <span>超过发热预警值但低于高热会显著提示</span>
+            <span>{{$t('zhiHuiSchool.tiwentongji.upfaretishi')}}</span>
           </div>
         </div>
         <div class="label_info">
           <div class="tooltip_kuai">
-            高热预警： <el-input v-model="input_g" placeholder="请输入内容" style="width: 60%"></el-input>
+            {{$t('zhiHuiSchool.tiwentongji.gaoreyujin')}}： <el-input v-model="input_g" placeholder="请输入内容" style="width: 60%"></el-input>
           </div>
           <div class="yujin_info">
-            <span>超过高热会更加显著且频繁的提示</span>
+            <span>{{$t('zhiHuiSchool.tiwentongji.upgaoretishi')}}</span>
           </div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogsettingVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogsettingVisible = false;setTem_info()">确 定</el-button>
+    <el-button type="primary" @click="dialogsettingVisible = false;setTem_info()">{{$t('message.queding')}}</el-button>
   </span>
     </el-dialog>
 
