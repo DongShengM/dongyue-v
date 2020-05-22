@@ -9824,7 +9824,7 @@ input[type="button"] {
 }
 .zk-table {
   background: #fff;
-  padding: 10px 50px;
+  padding: 10px 20px;
   overflow: hidden;
   overflow-x: auto;
 }
@@ -10601,7 +10601,6 @@ input[type="button"] {
 }
 .zhihuiBox {
   margin-top: 20px;
-  background: white;
   clear: both;
 }
 .zhihuiBox .left {
@@ -10637,10 +10636,8 @@ input[type="button"] {
   height: 45px;
   line-height: 45px;
   font-size: 18px;
-  background: #9999ff;
   text-align: left;
   padding-left: 20px;
-  color: #fff;
 }
 .title_zhihui .kaoqinshezhi {
   cursor: pointer;

@@ -7,6 +7,7 @@ const tw = {
     'tw':'中文繁體',
     'queding':'確 定',
     'setup':'設置',
+    'qinqiuchucuo':'請求出錯'
   },
   zhiHuiSchool:{
     all_share:{

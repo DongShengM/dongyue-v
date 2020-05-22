@@ -6,7 +6,8 @@ const cn = {
     'cn':'中文简体',
     'tw':'中文繁体',
     'queding':'确 定',
-    'setup':'设置'
+    'setup':'设置',
+    'qinqiuchucuo':'请求出错'
   },
   zhiHuiSchool:{
     all_share:{

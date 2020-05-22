@@ -3,107 +3,86 @@
 
   <div style="clear:both;"></div>
 
-  <div class="choosee" style="width: 100%">
-    <div class="col-14-16">
-      <a class="btn grayBtn mr20">日</a>
-      <a class="btn grayBtn mr20">周</a>
-      <a class="btn grayBtn mr20">月</a>
-      <a class="btn grayBtn ">年</a>
-    </div>
-    <div class="col-2-16">
-      <input class="time_input" type="text" value="年/月/日">
+  <div class="choosegrade" style="padding-left: 20px;height: 70px;line-height: 70px">
+    <div class="col-16-16">
+     <div class="nav_box">
+       <div class="btn_box">7天</div>
+       <div class="btn_box">1月</div>
+       <div class="btn_box">3月</div>
+     </div>
+      <div class="nav_box" style="width: 30%">
+        <div class="block">
+          <el-date-picker
+            v-model="value_time"
+            style="width: 100%"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        </div>
+      </div>
+      <!--<div class="nav_box">-->
+
+      <!--</div>-->
     </div>
 
   </div>
 
-
-  <div class="col-16-16 no-padding" >
-    <div class="col-7-16" style="height: 400px;border: 1px solid #1a1a1a">
-      <div class="f18">{{$t('zhiHuiSchool.jieduantongji.jinchuxiaotongji')}}</div>
-      <div class="cb_school col-16-16" style="height: 360px"></div>
-    </div>
-    <div class="col-1-16" style="height: 400px"></div>
-    <div class="col-8-16" style="height: 400px;border: 1px solid #1a1a1a">
-      <div class="f18">{{$t('zhiHuiSchool.jieduantongji.kaoqinpaihang')}}</div>
-      <div class="zhihui_table kaoqin_table">
-        <div class="col-16-16  f16 l_h40" v-for="(grade_kaoQin,i) in kaoQinInfo">
-          <div class="col-2-18 t_c">{{i}}</div>
-          <div class="col-4-18 t_c">初一一班</div>
-          <div class="col-4-18 t_c">出勤 <span>30</span></div>
-          <div class="col-4-18 t_c">{{$t('zhiHuiSchool.jiechuxiaojilu.chidao')}}<span>30</span></div>
-          <div class="col-4-18 t_c">缺勤 <span>30</span></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-16-16 no-padding mt20" style="border: 1px solid #1a1a1a">
-    <div class="col-8-16 tiwentongji" >
-      <div class="oneline no-border">
-        <div >{{$t('zhiHuiSchool.all_share.tiwentongji')}}</div>
-      </div>
-      <div class="oneline">
-        <div>{{$t('zhiHuiSchool.jieduantongji.leijiceshirenshu')}}
-        </div>
-        <div>&nbsp;</div>
-        <div>{{totalTestPeople}}人
-        </div>
-        <div class="data_tiao">
-          <!--注  这里相加为99-->
-          <span style="width: 80%;height: 5px" class="color_1"></span>
+  <div class=" " style="padding: 0 20px">
+    <div class="new_jieduan_box">
+      <div class="jiduanbox_child">
+        <div class="title_zhihui t_l">
+          <div class="col-16-16">
+            <span class="mr20 f16">{{$t('zhiHuiSchool.all_share.tiwentongji')}}</span>
+          </div>
+          </div>
+        <div class="wendu_togji info_nox" >
         </div>
       </div>
-      <div class="oneline">
-        <div>{{$t('zhiHuiSchool.jieduantongji.zaixiaoshengrenshu')}}
-        </div>
-        <div>&nbsp;</div>
-        <div>{{inSchoolPeople}}人
-        </div>
-        <div class="data_tiao">
-          <!--注  这里相加为99-->
-          <span style="width: 30%;height: 5px" class="color_1"></span>
+      <div class="jiduanbox_child">
+        <div class="title_zhihui t_l">
+          <div class="col-16-16">
+            <span class="mr20 f16">{{$t('zhiHuiSchool.all_share.jichuxiaojilu')}}</span>
+          </div>
+          </div>
+        <div class="cb_school info_nox"  >
         </div>
       </div>
-      <div class="oneline">
-        <div>{{$t('zhiHuiSchool.jieduantongji.leijiyichangrenshu')}}
+      <div class="jiduanbox_child">
+        <div class="title_zhihui t_l">
+          <div class="col-16-16">
+            <span class="mr20 f16">{{$t('zhiHuiSchool.jieduantongji.tiwyichangbanji')}}</span>
+          </div>
         </div>
-        <div>&nbsp;</div>
-        <div>{{totalBadPeople}}人
-        </div>
-        <div class="data_tiao">
-          <!--注  这里相加为99-->
-          <span style="width: 8%;height: 5px" class="color_1"></span>
-        </div>
-      </div>
-      <div class="oneline no-border">
-        <div >{{$t('zhiHuiSchool.jieduantongji.tiwyichangbanji')}}</div>
-      </div>
-      <div class="zhihui_table">
-        <div class="col-16-16   f16 l_h30">
-          <div class="col-8-16 t_c">班级</div>
-          <div class="col-8-16 t_c">{{$t('zhiHuiSchool.jieduantongji.renshu')}}</div>
-        </div>
-        <div class="col-16-16 normal_back_white  f16 l_h30" v-for="(grade_info , i ) in badTemperClass">
-          <div class="col-8-16 t_c">{{grade_info.class_n}}</div>
-          <div class="col-8-16 t_c people_num">{{grade_info.number}}</div>
+        <div class="info_nox">
+          <el-table  :data="table_data_cl"
+                     style="width: 100%" :show-header="false" >
+            <el-table-column align="center" property="date" label="姓名" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="name" label="性别" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="name" label="体温" :max-height="20"></el-table-column>
+          </el-table>
         </div>
       </div>
-    </div>
-    <div class="col-8-16 wendu_togji" style="height: 400px;">
+      <div class="jiduanbox_child">
+        <div class="title_zhihui t_l">
+          <div class="col-16-16">
+            <span class="mr20 f16">{{$t('zhiHuiSchool.jieduantongji.kaoqinpaihang')}}</span>
+          </div>
+        </div>
+        <div class="info_nox">
+          <el-table  :data="table_data_k"
+                     style="width: 100%" :show-header="false" >
+            <el-table-column align="center" property="date" label="姓名" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="name" label="性别" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="name" label="体温" :max-height="20"></el-table-column>
+          </el-table>
+        </div>
+      </div>
 
     </div>
   </div>
-  <div class="shouhuan-box alert-box animated fadeIn alertType" style="display:none">
-    <div class=" formType animated fadeIn">
-      <div class="alert-div form-box back_white animated fadeInDownBig" style="margin-top: -161.5px;">
-        <div class="form-head t_r"><a class="close-btn f18" href="javascript:;">×</a></div>
-        <form >
-        </form>
-        <a style="height:30px;width: 49%;">&nbsp;</a>
-        <a class="queding btn themeBtn t_c" style="width: 49%;margin: 0 auto;display: block;overflow: hidden">{{$t('message.queding')}}</a>
-      </div>
-    </div>
-  </div>
+
 </div>
 </template>
 
@@ -131,92 +110,93 @@
             ],
             wendunum:[
               {value:10,name:'正常人数'},
-              {value:10,name:'异常人数'}]
+              {value:10,name:'异常人数'}],
+            value_time:'',
+            table_data_k:[{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }],
+            table_data_cl:[{
+              date: '2016-05-02',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+              date: '2016-05-04',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1517 弄'
+            }, {
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄'
+            }, {
+              date: '2016-05-03',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1516 弄'
+            }]
         }
       },
       mounted(){
-        //  表格颜色间隔
-        let arr =$('.kaoqin_table div.col-16-16')
-        for (var i=0;i<arr.length;i++){
-          if (i%2==0){
-            arr[i].style.background="#9acdff"
-          } else{
-            arr[i].style.background="#cdcdff"
-          }
-        }
 
         //圆
         this.pie_sim($('.cb_school')[0],this.sim_data)
 
-        this.pie_wendu($('.wendu_togji')[0],this.wendunum)
+        this.pie_wendu($('.wendu_togji')[0])
 
-        $('.people_num').on('click',function () {
 
-          let student_num = this.innerHTML
-          let class_nam =this.previousElementSibling.innerHTML
-          $('.alert-div form').append("<div class=\"form-inline list-root\" v-for='()'>\n" +
-            "                            <div class=\"col-16-16 t_c l_h30 f16\">一年级一班</div>\n" +
-            "                            <div class=\"col-16-16 back_grayer mt10 l_h30 f16\">\n" +
-            "                                <div class=\"col-2-16 t_c\">1</div>\n" +
-            "                                <div class=\"col-4-16 t_c\">王可可</div>\n" +
-            "                                <div class=\"col-2-16 t_c\">男</div>\n" +
-            "                                <div class=\"col-2-16 t_c\">36.3</div>\n" +
-            "                                <div class=\"col-6-16 t_c\">05-05 8：24</div>\n" +
-            "                            </div>\n" +
-            "                    </div>")
-
-          $('.alert-box').css('display','block');
-        })
-
-        $(".close-btn").click(function () {
-          $('.alert-box').css('display','none');
-          $('.alert-div form')[0].innerHTML="";
-        });
-        $(".queding").click(function () {
-          $('.alert-box').css('display','none');
-          $('.alert-div form')[0].innerHTML="";
-        });
       },
       methods:{
-        pie_sim(div,data) {
-          let myChart = echarts.init(div);
-          let option = {
-            tooltip: {
-              trigger: 'item',
-              formatter: "{b}: {c} ({d}%)"
-            },
-
-            series: [
-              {
-                type:'pie',
-                radius: '60%',
-                // avoidLabelOverlap: false,
-                label: {
-                  // normal: {
-                  //     show: false,
-                  //     position: 'center'
-                  // },
-
-                  textStyle: {
-                    fontSize: '16',
-                    fontWeight: 'bold'
-                  }
-
-                },
-                // labelLine: {
-                //     normal: {
-                //         show: false
-                //     }
-                // },
-                data:data
-              }
-            ]
-          };
-          myChart.setOption(option, true);
-
-
-        },
-        pie_wendu(div,data) {
+        // pie_sim(div,data) {
+        //   let myChart = echarts.init(div);
+        //   let option = {
+        //     tooltip: {
+        //       trigger: 'item',
+        //       formatter: "{b}: {c} ({d}%)"
+        //     },
+        //
+        //     series: [
+        //       {
+        //         type:'pie',
+        //         radius: '60%',
+        //         // avoidLabelOverlap: false,
+        //         label: {
+        //           // normal: {
+        //           //     show: false,
+        //           //     position: 'center'
+        //           // },
+        //
+        //           textStyle: {
+        //             fontSize: '16',
+        //             fontWeight: 'bold'
+        //           }
+        //
+        //         },
+        //         // labelLine: {
+        //         //     normal: {
+        //         //         show: false
+        //         //     }
+        //         // },
+        //         data:data
+        //       }
+        //     ]
+        //   };
+        //   myChart.setOption(option, true);
+        //
+        //
+        // },
+      /*  pie_wendu(div,data) {
           let myChart = echarts.init(div);
           let option = {
             tooltip: {
@@ -265,7 +245,397 @@
           myChart.setOption(option, true);
 
 
+        },*/
+        pie_sim(div, data) {
+          this.pieChart = echarts.init(div);
+          let option = {
+            tooltip: {
+              trigger: 'item',
+              formatter: "{b}: {c} ({d}%)"
+            },
+            backgroundColor: '#fff',
+            // title: {
+            //   text: grade,
+            //   x: '32%',
+            //   y: '45%',
+            // },
+
+            color:['#96d771','#37a2da','#ffdb5c'],
+            legend: {
+              // orient: 'vertical',
+              right:' 38%',
+              bottom: '7%',
+              data:['正常','缺勤','迟到']
+            },
+            series: [
+              {
+                type: 'pie',
+                radius: ['35%', '50%'],
+                center:['50%','50%'],
+                // avoidLabelOverlap: false,
+                label: {
+                  normal: {
+                      show: true,
+                    formatter:function (d) {
+                      return d.name+" : "+d.value+'人'
+                    }
+                  },
+
+                  textStyle: {
+                    fontSize: '12',
+                    fontWeight: 'bold'
+                  }
+
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: data
+              }
+            ]
+          };
+          this.pieChart.setOption(option, true);
         },
+
+        pie_wendu(div) {
+          var myChart = echarts.init(div);
+          var placeHolderStyle = {
+            normal: {
+              label: {
+                show: false
+              },
+              labelLine: {
+                show: false
+              },
+              color: "rgba(0,0,0,0)",
+              borderWidth: 0
+            },
+            emphasis: {
+              color: "rgba(0,0,0,0)",
+              borderWidth: 0
+            }
+          };
+
+
+          /* var dataStyle = {
+               normal: {
+                   formatter: 'jgjhg{c}%',
+                   position: 'center',
+                   show: true,
+                   textStyle: {
+                       fontSize: '16',
+                       fontWeight: 'normal',
+                       color: '#34374E'
+                   }
+               }
+           };*/
+          let option = {
+            backgroundColor: '#fff',
+            color:['#96d771','#e18c9f'],
+            title: [{
+              left: '29.8%',
+              top: '60%',
+              textAlign: 'center',
+              textStyle: {
+                fontWeight: 'normal',
+                fontSize: '16',
+                color: '#AAAFC8',
+                textAlign: 'center',
+              },
+            }, {
+              left: '70%',
+              top: '60%',
+              textAlign: 'center',
+              textStyle: {
+                color: '#AAAFC8',
+                fontWeight: 'normal',
+                fontSize: '16',
+                textAlign: 'center',
+              },
+            }],
+            tooltip: {
+              name:'园园',
+              trigger: 'item',
+              formatter: "{b}: {c} ({d}%)"
+            },
+            legend: {
+              // orient: 'vertical',
+              right:' 40%',
+              bottom: '7%',
+              data:['正常','异常']
+            },
+
+            //第一个图表
+            series: [{
+              type: 'pie',
+              hoverAnimation: false, //鼠标经过的特效
+              radius: ['20%', '22%'],
+              center: ['10%', '20%'],
+              startAngle: 225,
+              labelLine: {
+                normal: {
+                  show: false
+                }
+              },
+              label: {
+                normal: {
+                  position: 'center'
+                }
+              },
+              data: [{
+                value: 100,
+                itemStyle: {
+                  normal: {
+                    color: '#E1E8EE'
+                  }
+                },
+              }, {
+                value: 35,
+                itemStyle: placeHolderStyle,
+              },
+
+              ]
+            },
+              //上层环形配置
+              {
+                type: 'pie',
+                hoverAnimation: false, //鼠标经过的特效
+                radius: ['20%', '22%'],
+                center: ['10%', '20%'],
+                startAngle: 225,
+                labelLine: {
+                  normal: {
+                    show: false
+                  }
+                },
+                label: {
+                  normal: {
+                    position: 'center'
+                  }
+                },
+                data: [{
+                  value: 75,
+                  itemStyle: {
+                    normal: {
+                      color: '#96d771'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      formatter: '累计异常 \n {c}人',
+                      position: 'center',
+                      show: true,
+                      textStyle: {
+                        fontSize: '10',
+                        fontWeight: 'normal',
+                        color: '#34374E'
+                      }
+                    }
+                  },
+                }, {
+                  value: 35,
+                  itemStyle: placeHolderStyle,
+                },
+
+                ]
+              },
+
+
+              //第二个图表
+              {
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['20%', '22%'],
+                center: ['10%', '50%'],
+                startAngle: 225,
+                labelLine: {
+                  normal: {
+                    show: false
+                  }
+                },
+                label: {
+                  normal: {
+                    position: 'center'
+                  }
+                },
+                data: [{
+                  value: 100,
+                  itemStyle: {
+                    normal: {
+                      color: '#E1E8EE'
+
+
+                    }
+                  },
+
+                }, {
+                  value: 35,
+                  itemStyle: placeHolderStyle,
+                },
+
+                ]
+              },
+
+              //上层环形配置
+              {
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['20%', '22%'],
+                center: ['10%', '50%'],
+                startAngle: 225,
+                labelLine: {
+                  normal: {
+                    show: false
+                  }
+                },
+                label: {
+                  normal: {
+                    position: 'center'
+                  }
+                },
+                data: [{
+                  value: 30,
+                  itemStyle: {
+                    normal: {
+                      color: '#ffdb5c'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      formatter: '在校生\n{c}人',
+                      position: 'center',
+                      show: true,
+                      textStyle: {
+                        fontSize: '10',
+                        fontWeight: 'normal',
+                        color: '#34374E'
+                      }
+                    }
+                  },
+                }, {
+                  value: 55,
+                  itemStyle: placeHolderStyle,
+                },
+
+                ]
+              },
+
+              //第三个图表
+              {
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['20%', '22%'],
+                center: ['10%', '80%'],
+                startAngle: 225,
+                labelLine: {
+                  normal: {
+                    show: false
+                  }
+                },
+                label: {
+                  normal: {
+                    position: 'center'
+                  }
+                },
+                data: [{
+                  value: 100,
+                  itemStyle: {
+                    normal: {
+                      color: '#E1E8EE'
+
+
+                    }
+                  },
+
+                }, {
+                  value: 35,
+                  itemStyle: placeHolderStyle,
+                },
+
+                ]
+              },
+
+              //上层环形配置
+              {
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['20%', '22%'],
+                center: ['10%', '80%'],
+                startAngle: 225,
+                labelLine: {
+                  normal: {
+                    show: false
+                  }
+                },
+                label: {
+                  normal: {
+                    position: 'center'
+                  }
+                },
+                data: [{
+                  value: 30,
+                  itemStyle: {
+                    normal: {
+                      color: '#37a2da'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      formatter: '累计测试 \n{c}人',
+                      position: 'center',
+                      show: true,
+                      textStyle: {
+                        fontSize: '10',
+                        fontWeight: 'normal',
+                        color: '#34374E'
+                      }
+                    }
+                  },
+                }, {
+                  value: 60,
+                  itemStyle: placeHolderStyle,
+                },
+
+                ]
+              },
+              {
+                type: 'pie',
+
+                radius: ['35%', '50%'],
+                center:['53%','50%'],
+                // avoidLabelOverlap: false,
+                label: {
+                  normal: {
+                    show: true,
+                    // position: 'center',
+                    formatter:function (d) {
+                      return d.name+" : "+d.value+'人'
+                    }
+                  },
+                  textStyle: {
+                    fontSize: '12',
+                    fontWeight: 'bold'
+                  }
+
+                },
+                labelLine: {
+                  normal: {
+                    show: false
+                  }
+                },
+                data: [
+                  {value:666, name:'正常'},
+                  {value:134, name:'异常'}
+                ]
+              }
+            ]
+          };
+          if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+          }
+        }
        /* open() {
           this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
             dangerouslyUseHTMLString: true
@@ -277,4 +647,39 @@
 
 <style lang="less">
   @import "../common/css/main.less";
+  .nav_box{
+    width: 20%;
+    height: 40px;
+    float: left;
+    margin-top: 15px;
+    line-height: 40px;
+    margin-right: 20px;
+    .btn_box{
+      width: 33%;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      float: left;
+      border: 1px solid #cfcfcf;
+      &focus{
+        color: @themeColor;
+      }
+    }
+  }
+  .new_jieduan_box{
+    width: 100%;
+    height: auto;
+    .jiduanbox_child{
+      width: 49%;
+      background-color: white;
+      height: 370px;
+      margin-top: 10px;
+      float: left;
+      margin-right: 1%;
+      .info_nox{
+        width: 100%;
+        height: 320px;
+      }
+    }
+  }
 </style>
