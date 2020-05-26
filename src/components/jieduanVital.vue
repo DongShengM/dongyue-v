@@ -15,10 +15,12 @@
           <el-date-picker
             v-model="value_time"
             style="width: 100%"
+            :change="changeTime()"
             type="daterange"
             range-separator="至"
             start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            end-placeholder="结束日期"
+            value-format="yyyy-MM-dd">
           </el-date-picker>
         </div>
       </div>
@@ -109,8 +111,9 @@
               {value:135, name:'迟到'}
             ],
             wendunum:[
-              {value:10,name:'正常人数'},
-              {value:10,name:'异常人数'}],
+              {value:10,name:'正常'},
+              {value:10,name:'异常'}],
+
             value_time:'',
             table_data_k:[{
           date: '2016-05-02',
@@ -153,99 +156,11 @@
         //圆
         this.pie_sim($('.cb_school')[0],this.sim_data)
 
-        this.pie_wendu($('.wendu_togji')[0])
-
+        this.pie_wendu($('.wendu_togji')[0],100,70,30,30,this.wendunum)
 
       },
       methods:{
-        // pie_sim(div,data) {
-        //   let myChart = echarts.init(div);
-        //   let option = {
-        //     tooltip: {
-        //       trigger: 'item',
-        //       formatter: "{b}: {c} ({d}%)"
-        //     },
-        //
-        //     series: [
-        //       {
-        //         type:'pie',
-        //         radius: '60%',
-        //         // avoidLabelOverlap: false,
-        //         label: {
-        //           // normal: {
-        //           //     show: false,
-        //           //     position: 'center'
-        //           // },
-        //
-        //           textStyle: {
-        //             fontSize: '16',
-        //             fontWeight: 'bold'
-        //           }
-        //
-        //         },
-        //         // labelLine: {
-        //         //     normal: {
-        //         //         show: false
-        //         //     }
-        //         // },
-        //         data:data
-        //       }
-        //     ]
-        //   };
-        //   myChart.setOption(option, true);
-        //
-        //
-        // },
-      /*  pie_wendu(div,data) {
-          let myChart = echarts.init(div);
-          let option = {
-            tooltip: {
-              trigger: 'item',
-              formatter: "{b}: {c} ({d}%)"
-            },
-            // backgroundColor: '#fff',
-            // title : {
-            //     text: grade,
-            //     x:'left'
-            // },
 
-            color:['#67e0e3','#ff9f7f'],
-            // legend: {
-            //     orient: 'vertical',
-            //     x: 'left',
-            //     data:['正常','早退','缺勤','迟到']
-            // },
-            series: [
-              {
-                type:'pie',
-                radius: '60%',
-                // avoidLabelOverlap: false,
-                label: {
-                  normal: {
-                    show: true,
-                    formatter:'{c}',
-                    position: 'inside'
-                  },
-
-                  textStyle: {
-                    fontSize: '16',
-                    fontWeight: 'bold'
-                  }
-
-                },
-                // labelLine: {
-                //     normal: {
-                //         show: false
-                //     }
-                // },
-                data:data
-              }
-            ]
-          };
-          myChart.setOption(option, true);
-
-
-        },*/
         pie_sim(div, data) {
           this.pieChart = echarts.init(div);
           let option = {
@@ -299,7 +214,7 @@
           this.pieChart.setOption(option, true);
         },
 
-        pie_wendu(div) {
+        pie_wendu(div , total_people,all_bad_people,inSchool_student,add_test_people,pie_huan_data) {
           var myChart = echarts.init(div);
           var placeHolderStyle = {
             normal: {
@@ -385,7 +300,7 @@
                 }
               },
               data: [{
-                value: 100,
+                value: total_people,      //总人数
                 itemStyle: {
                   normal: {
                     color: '#E1E8EE'
@@ -416,7 +331,7 @@
                   }
                 },
                 data: [{
-                  value: 75,
+                  value: all_bad_people,     //累计异常人数
                   itemStyle: {
                     normal: {
                       color: '#96d771'
@@ -461,7 +376,7 @@
                   }
                 },
                 data: [{
-                  value: 100,
+                  value: total_people,
                   itemStyle: {
                     normal: {
                       color: '#E1E8EE'
@@ -496,7 +411,7 @@
                   }
                 },
                 data: [{
-                  value: 30,
+                  value: inSchool_student,
                   itemStyle: {
                     normal: {
                       color: '#ffdb5c'
@@ -540,7 +455,7 @@
                   }
                 },
                 data: [{
-                  value: 100,
+                  value: total_people,
                   itemStyle: {
                     normal: {
                       color: '#E1E8EE'
@@ -575,7 +490,7 @@
                   }
                 },
                 data: [{
-                  value: 30,
+                  value: add_test_people,
                   itemStyle: {
                     normal: {
                       color: '#37a2da'
@@ -625,18 +540,22 @@
                     show: false
                   }
                 },
-                data: [
-                  {value:666, name:'正常'},
-                  {value:134, name:'异常'}
-                ]
+                data:pie_huan_data
               }
             ]
           };
           if (option && typeof option === "object") {
             myChart.setOption(option, true);
           }
+        },
+
+        changeTime(){
+          let start = this.value_time[0]
+          let end = this.value_time[1]
+
+
         }
-       /* open() {
+        /* open() {
           this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
             dangerouslyUseHTMLString: true
           });

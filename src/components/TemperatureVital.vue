@@ -49,7 +49,7 @@
                 <span :style="{color: '#D60000'}">{{scope.row.degree/10}}</span>
               </template>
             </el-table-column>
-            <el-table-column align="center" property="detectTime"  label="时间" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="detectTime" :formatter="formatterSelectTime"  label="时间" :max-height="20"></el-table-column>
           </el-table>
           <div style="text-align: center;margin-top: 30px;">
             <el-pagination
@@ -570,7 +570,7 @@
       formatterSelectTime(row, column, cellValue){
 
         return cellValue[0]+"年"+cellValue[1]+"月"+cellValue[2]+"日 "+
-          cellValue[3]+"："+cellValue[4]+"："+cellValue[5]
+          cellValue[3]+":"+cellValue[4]+":"+cellValue[5]
       },
       /* updata(){
         let that = this
