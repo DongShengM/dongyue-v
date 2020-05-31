@@ -11,17 +11,13 @@ import i18n from './i18n/i18n'
 // import jianfan from './common/js/jianfan'
 
 import './common/css/icon.css'
-
+import './common/css/icon2.css'
 // Vue.prototype.jianfan=jianfan
 Vue.config.productionTip = false
 
 import axios from 'axios'
 Vue.prototype.$axios = axios
 // axios.defaults.baseURL = '/api'
-
-import md5 from 'md5'
-
-Vue.prototype.$md5 = md5;
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
@@ -40,11 +36,12 @@ new Vue({
 
 axios.interceptors.request.use(
   config=>{
-    console.log(localStorage.token)
     if (localStorage.token){
-      config.headers.token = localStorage.token
+      config.headers.token = 'c8d16b9b630220e5a40ea13be25eac46'
     }
+
     console.log(config)
+    // console.log(localStorage.token)
     return config
   },
   error=>{

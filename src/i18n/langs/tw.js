@@ -76,6 +76,18 @@ const tw = {
       upfaretishi:'超過發熱預警值但低於高熱會顯著提示',
       gaoreyujin:'高熱預警',
       upgaoretishi:'超過高熱會更加顯著且頻繁的提示'
+    },
+    temperatureData:{
+      temperatureDataTitle:"體溫數據",
+      checkData: "查詢",
+      exportData:"導出",
+      studentID:"學號",
+      studentName:"姓名",
+      maxTemperature:"最高體溫",
+      minTemperature:"最低體溫",
+      avgTemperature:"平均體溫",
+      newTemperature:"最新體溫",
+      detectTime:"測量時間"
     }
   },
   ...twLocale

@@ -76,9 +76,29 @@ const cn = {
       upfaretishi:'超过发热预警值但低于高热会显著提示',
       gaoreyujin:'高热预警',
       upgaoretishi:'超过高热会更加显著且频繁的提示'
+    },
+    temperatureData:{
+      temperatureDataTitle:"体温数据",
+      checkData: "查询",
+      exportData:"导出",
+      studentID:"学号",
+      studentName:"姓名",
+      maxTemperature:"最高体温",
+      minTemperature:"最低体温",
+      avgTemperature:"平均体温",
+      newTemperature:"最新体温",
+      detectTime:"测量时间"
+    },
+    moveStep:{
+      moveStepTitle:"运动步数",
+      allSchoolSituation:"全校概况",
+      dayAvgSteps:"日均步数",
+      dayAvgCalories:"日均消耗卡路里",
+      classData:"班级数据",
+      chartTitle:"全校统计"
     }
   },
-    ...zhLocale
+  ...zhLocale
 }
 
 export default cn;

@@ -4,6 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import JinchuSchool from '@/components/jinchuSchool'
 import JieduanVital from '@/components/jieduanVital'
 import TemperatureVital from '@/components/temperatureVital'
+import TemperatureData from '@/components/temperatureData'
+import MoveStep from '@/components/moveStep'
 
 Vue.use(Router)
 
@@ -32,24 +34,41 @@ const router =  new Router({
       path:'/temperatureVital',
       name:'temperatureVital',
       component:TemperatureVital
+    },
+    {
+      path:'/temperatureData',
+      name:'temperatureData',
+      component:TemperatureData
+    },
+    {
+      path:'/moveStep',
+      name:'moveStep',
+      component:MoveStep
     }
+
   ]
 })
 
 //
-/*router.beforeEach((to,from,next)=>{
+router.beforeEach((to,from,next)=>{
+  /* if (to.matched.some(res => res.meta.requireAuth)) {
+   if (localStorage.getItem('token')){
+   next()
+   }else {
+   window.location.href = 'https://www.baidu.com'
+   }
+   }else{
+   next()
+   }*/
 
-  if (to.matched.some(res => res.meta.requireAuth)) {
-    if (localStorage.getItem('token')){
-      next()
-    }
-  }else{
-    next()
-  }
- // next()
+  console.log(window.location.search)
+  next()
+
+
+
 
   // window.location.href = 'https://www.baidu.com'
-})*/
+})
 
 
 export default router
