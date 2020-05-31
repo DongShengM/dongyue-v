@@ -37,25 +37,19 @@ const router =  new Router({
 })
 
 //
-router.beforeEach((to,from,next)=>{
- /* if (to.matched.some(res => res.meta.requireAuth)) {
+/*router.beforeEach((to,from,next)=>{
+
+  if (to.matched.some(res => res.meta.requireAuth)) {
     if (localStorage.getItem('token')){
       next()
-    }else {
-      window.location.href = 'https://www.baidu.com'
     }
   }else{
     next()
-  }*/
-
- console.log(window.location.search)
- next()
-
-
-
+  }
+ // next()
 
   // window.location.href = 'https://www.baidu.com'
-})
+})*/
 
 
 export default router

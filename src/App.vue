@@ -120,16 +120,24 @@ export default {
   },
   created(){
     console.log('000')
+    // let str = window.location.search
+    let str ='c8d16b9b630220e5a40ea13be2=5eac46=token'
+    console.log(str)
+    let index = str.lastIndexOf("\=token")
+
+    console.log(str.substring(0,index))
+
+    window.localStorage["token"]= str.substring(0,index)
   },
 
   beforeMount(){
     // console.log('111')
     // this.firstCome('api/login/dy_mobile_171435_15555555116/20200521235455/f7c0502f911f0e2eee92f453f6fb7b57')
     // this.firstCome('http://t.jiankangtiyu.com/dy-heat/studentHeat/getStudentRealTimeHeat/9391')
-
-    // window.localStorage["token"]= '1212'
     // http://localhost:2002/login/dy_mobile_171435_15555555116/20200521235455/f7c0502f911f0e2eee92f453f6fb7b57
-   console.log( window.location.search)
+
+
+
   },
   mounted(){
 

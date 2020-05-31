@@ -15,7 +15,7 @@
           <el-date-picker
             v-model="value_time"
             style="width: 100%"
-            :change="changeTime()"
+            @change="changeTime"
             type="daterange"
             range-separator="至"
             start-placeholder="开始日期"
@@ -72,13 +72,40 @@
             <span class="mr20 f16">{{$t('zhiHuiSchool.jieduantongji.kaoqinpaihang')}}</span>
           </div>
         </div>
-        <div class="info_nox">
-          <el-table  :data="table_data_k"
+        <div class="info_nox" style="height: 260px">
+          <el-table  :data="slicdata_mx()"
                      style="width: 100%" :show-header="false" >
-            <el-table-column align="center" property="date" label="姓名" :max-height="20"></el-table-column>
-            <el-table-column align="center" property="name" label="性别" :max-height="20"></el-table-column>
-            <el-table-column align="center" property="name" label="体温" :max-height="20"></el-table-column>
+            <el-table-column align="center" type="index" width="50"></el-table-column>
+            <el-table-column align="center" property="grade" label="班级" :max-height="20">
+              <template slot-scope="scope">
+                <span >{{scope.row.gradeName}}{{scope.row.className}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" property="normal" label="出勤" :max-height="20">
+              <template slot-scope="scope">
+                <span >出勤：{{scope.row.normal}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" property="late" label="迟到" :max-height="20">
+              <template slot-scope="scope">
+                <span >迟到：{{scope.row.late}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" property="absenteeism" label="缺勤" :max-height="20">
+              <template slot-scope="scope">
+                <span >缺勤：{{scope.row.absenteeism}}</span>
+              </template>
+            </el-table-column>
           </el-table>
+        </div>
+        <div class="col-16-16 t_c">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :page-size="pagesize"
+            :total="this.table_data_k.length"
+            @current-change="current_change">
+          </el-pagination>
         </div>
       </div>
 
@@ -105,33 +132,39 @@
               {class_n:'二年级二班',number:'3'}
             ],
             kaoQinInfo:[[],[],[],[]],
+
+            pieChart:null,
             sim_data:[
               {value:666, name:'正常'},
+              {value:135, name:'早退'},
               {value:134, name:'缺勤'},
               {value:135, name:'迟到'}
+
             ],
             wendunum:[
               {value:10,name:'正常'},
               {value:10,name:'异常'}],
 
             value_time:'',
+
+            //  表格分页标签  数据像
+            total_table: [],//默认数据总数
+
+            pagesize: 5,//每页的数据条数
+
+            currentPage: 1,//默认开始页面}
             table_data_k:[{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
+                    "studentClassAttendanceId": 19,
+                    "classId": 9391,  //班级id
+                    "className": "(1)班",//班级名称
+                    "grade": 13,   //年级id
+                    "gradeName": "初三", //年级名称
+                    "schoolId": 710,  //学校id
+                    "late": 0,  //迟到
+                    "leaveEarly": 0,  //早退
+                    "absenteeism": 55,  //缺勤
+                    "normal": 0,  //正常
+                }],
             table_data_cl:[{
               date: '2016-05-02',
               name: '王小虎',
@@ -175,12 +208,13 @@
             //   y: '45%',
             // },
 
-            color:['#96d771','#37a2da','#ffdb5c'],
+            // color:['#96d771','#37a2da','#ffdb5c'],
+            color: ['#96a5c2', '#37a2da', '#ffdb5c', '#96d771'],
             legend: {
               // orient: 'vertical',
               right:' 38%',
               bottom: '7%',
-              data:['正常','缺勤','迟到']
+              data:['正常','早退','缺勤','迟到']
             },
             series: [
               {
@@ -554,7 +588,60 @@
           let end = this.value_time[1]
 
 
-        }
+          let canshu = {
+            "statisticsDateStart":start,
+            "statisticsDateEnd":end,
+          }
+
+          console.log('aaddad')
+          //进出校记录  饼图
+          this.getNewKQTable(canshu)
+          this.getkQPHdata(canshu)
+        },
+        updataPieChart(data) {
+          this.pieChart.setOption({
+            series: [
+              {data: data}
+            ]
+          })
+        },
+        //当前考勤排行
+        async getkQPHdata(date) {
+          let pdata = await this.$axios.post("http://t.jiankangtiyu.com/dy-heat/studentClassAttendance/getStudentClassAttendanceList", date)
+          this.table_data_k = await pdata.data
+          console.log(this.table_data_k)
+        },
+        async getNewKQTable(date) {
+
+          //date 的形式  yyyy-MM-dd
+          let pdata = await this.$axios.post("http://t.jiankangtiyu.com/dy-heat/studentClassAttendance/getStudentClassAttendanceSum", date)
+
+          let da= await pdata.data
+          let changepie_data
+          if (da){
+            changepie_data= [
+              {value:da.normal, name:'正常'},
+              {value:da.leaveEarly, name:'早退'},
+              {value:da.absenteeism, name:'缺勤'},
+              {value:da.late, name:'迟到'}
+            ]
+          } else{
+            changepie_data= [
+              {value:0, name:'正常'},
+              {value:0, name:'早退'},
+              {value:0, name:'缺勤'},
+              {value:0, name:'迟到'}
+            ]
+          }
+
+          this.updataPieChart(changepie_data)
+        },
+        slicdata_mx(){
+          return this.table_data_k.slice((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize)
+        },
+        current_change:function (currentPage) {
+          this.currentPage = currentPage;
+        },
         /* open() {
           this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
             dangerouslyUseHTMLString: true

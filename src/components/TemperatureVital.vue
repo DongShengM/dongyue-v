@@ -379,7 +379,6 @@
 
           await that.getclassData(tem_url);
         }
-
       },
       //获取时间
       getTime() {

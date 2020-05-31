@@ -29,8 +29,8 @@
         <div class="block">
           <el-date-picker
             v-model="first_value_time"
-            :change="changejingTime()"
-            value-format="yyyyMMdd"
+            @change="changejingTime"
+            value-format="yyyy-MM-dd"
             type="date"
             :placeholder="$t('zhiHuiSchool.jiechuxiaojilu.xuanzeriqishijian')">
           </el-date-picker>
@@ -97,7 +97,7 @@
           :border='false'
           :header-cell-style="{background:'#e4eaf1'}"
           style="width: 100%">
-          <el-table-column align="center" prop="className" :label="$t('zhiHuiSchool.jiechuxiaojilu.banji')"
+          <el-table-column align="center" prop="classId" :formatter="filterClassName" :label="$t('zhiHuiSchool.jiechuxiaojilu.banji')"
                            width="180"></el-table-column>
           <el-table-column align="center" prop="studentCode" :label="$t('zhiHuiSchool.jiechuxiaojilu.xuehao')"
                            width="180"></el-table-column>
@@ -395,17 +395,13 @@
       this.getNavData()
 
 
-      console.log(document.getElementById('line_chart'))
-      console.log($('#line_chart'))
       this.line_zhihui($('#line_chart')[0], this.time, this.data_inSchool, this.data_outSchool)
-      // $('.pie-chart-box-zhihui')[0].style.height=$('.pie-chart-box-zhihui')[0].clientWidth-7+'px'
-      // $('.pie-chart-box-zhihui')[1].style.height=$('.pie-chart-box-zhihui')[1].clientWidth-7+'px'
+
       this.pie_zhihui($('.pie-chart-box-zhihui')[0], '', this.piedata)
-      // this.pie_zhihui( $('.pie-chart-box-zhihui')[1],'一年级二班',this.piedata)
+
     },
     methods: {
       line_zhihui(div, xdata, data_inSchool, data_outSchool) {
-        console.log(div)
         this.LineChart = echarts.init(div);
         let option = {
           // title: {
@@ -519,7 +515,6 @@
         this.LineChart.setOption(option, true);
       },
       pie_zhihui(div, grade, data) {
-        console.log(div)
         this.pieChart = echarts.init(div);
         let option = {
           tooltip: {
@@ -591,7 +586,26 @@
         })
       },
 
-
+      filterClassName(value, row, column){
+        let arr = this.school_info
+        let gradeN
+        let classN
+        let arr2
+        for (let i in arr){
+          if (arr[i].grade == value.grade) {
+            arr2=  arr[i].classInfo
+            gradeN = arr[i].gradeName
+            break
+          }
+        }
+        for (let i in arr2){
+          if (arr2[i].classId == column) {
+            classN =arr2[i].className
+            break
+          }
+        }
+       return gradeN+classN
+      },
       filterSex(value, row, column) {
         let sex
         switch (column * 1) {
@@ -622,6 +636,8 @@
           let resdate = await this.$axios.get(url)
 
           this.kqTJData = await resdate.data
+          console.log(resdate.data)
+
         } catch (err) {
           // alert('考勤数据请求报错')
         }
@@ -635,8 +651,7 @@
           let strobj=eval('(' + str + ')')
           this.LineData_total = strobj
 
-
-
+          console.log(strobj)
 
           /*   this.kqTJData= await resdate.data
              console.log(this.kqTJData)*/
@@ -650,7 +665,9 @@
         let pdata = await this.$axios.post("http://t.jiankangtiyu.com/dy-heat/studentEntrance/getStudentEntrance", date)
 
         this.total_table= await pdata.data
+
         console.log(pdata.data)
+
       },
 
 
@@ -673,21 +690,24 @@
 
       },
       getNowLinedata(cl_id) {
+        console.log(this.LineData_total)
         let n_data = this.LineData_total
         let inS=[]
         let outS=[]
-        console.log('cccc')
-        for (let i=0;i<this.time.length;i++){
-          let key =this.time[i]
-          if (n_data.classInMap[key]) {
-            inS.push(n_data.classInMap[key][cl_id])
-          }else {
-            inS.push('')
-          }
-          if (n_data.classOutMap[key]) {
-            outS.push(n_data.classOutMap[key][cl_id])
-          }else {
-            outS.push('')
+
+        if (n_data) {
+          for (let i=0;i<this.time.length;i++){
+            let key =this.time[i]
+            if (n_data.classInMap[key]) {
+              inS.push(n_data.classInMap[key][cl_id])
+            }else {
+              inS.push('')
+            }
+            if (n_data.classOutMap[key]) {
+              outS.push(n_data.classOutMap[key][cl_id])
+            }else {
+              outS.push('')
+            }
           }
         }
         this.updataLineChart(inS,outS)
@@ -708,7 +728,7 @@
 
 
       },
-      changeN(grade_n) {
+      changeN:function(grade_n) {
         this.grade_xuanzhong = grade_n
 
 
@@ -718,14 +738,14 @@
 
          } */
       },
-      changeB(title, class_n) {
+      changeB:function(title, class_n) {
         this.class_xuanzhong = class_n
         let date_1
 
         if (this.first_value_time) {
           let y = this.first_value_time.substring(0, 4)
-          let m = this.first_value_time.substring(4, 6)
-          let d = this.first_value_time.substring(6, 8)
+          let m = this.first_value_time.substring(5, 7)
+          let d = this.first_value_time.substring(8, 10)
           date_1 = {
             classId :class_n,
             detectTimeStart: new Date(y*1, m*1-1, d*1, 8, 0, 0),
@@ -756,8 +776,8 @@
         let date_2
         if (this.class_xuanzhong) {
           let y = this.first_value_time.substring(0, 4)
-          let m = this.first_value_time.substring(4, 6)
-          let d = this.first_value_time.substring(6, 8)
+          let m = this.first_value_time.substring(5, 7)
+          let d = this.first_value_time.substring(8, 10)
           /*         let start = new Date(y, m-1, d, 8, 0, 0)
                    let end = new Date(y, m-1, d+1, 7, 59, 59)*/
           date_2 = {
