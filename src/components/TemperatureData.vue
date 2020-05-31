@@ -169,7 +169,7 @@
                     "startTime": this.value_time[0]+"T00:00",
                     "endTime": this.value_time[1]+"T00:00"
                   }
-                  let Response = await this.$axios.post("http://t.jiankangtiyu.com/studentHeat/queryStudentHeat",testData);
+                  let Response = await this.$axios.post("api/studentHeat/queryStudentHeat",testData);
                   //总数
                   this.pageTotal = parseInt((Response.data.length));
                   //总数据整理
@@ -332,7 +332,7 @@
         //初始化下拉菜单
         async initializationSelect(){
             //清空班级
-          let Response = await this.$axios.get("http://t.jiankangtiyu.com/dy-heat/school/getSchoolInfo");
+          let Response = await this.$axios.get("api/dy-heat/school/getSchoolInfo");
           let allData = [];
           Response.data.forEach((e,i)=>{
             allData.push({

@@ -10,7 +10,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-     /* '/api': {
+      '/api': {
         target:'http://t.jiankangtiyu.com/dy-heat', // 你请求的第三方接口
         // target:'http://121.196.59.238', // 你请求的第三方接口
         // secure: false,
@@ -18,7 +18,7 @@ module.exports = {
         pathRewrite:{  // 路径重写，
           '^/api': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
         }
-      }*/
+      }
     },
 
     // Various Dev Server settings

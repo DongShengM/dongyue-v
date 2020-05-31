@@ -662,7 +662,7 @@
       //详细记录表的数据
       async getXXTable(date) {
 
-        let pdata = await this.$axios.post("http://t.jiankangtiyu.com/dy-heat/studentEntrance/getStudentEntrance", date)
+        let pdata = await this.$axios.post("api/dy-heat/studentEntrance/getStudentEntrance", date)
 
         this.total_table= await pdata.data
 
@@ -717,7 +717,7 @@
       async getNavData() {
         try {
           let that = this
-          let resdate = await this.$axios.get('http://t.jiankangtiyu.com/dy-heat/school/getSchoolInfo')
+          let resdate = await this.$axios.get('api/dy-heat/school/getSchoolInfo')
 
           that.school_info = await resdate.data
           that.grade_xuanzhong = that.school_info[0].grade
@@ -787,8 +787,8 @@
           }
           this.getXXTable(date_2)
         }
-        await this.getkQData('http://t.jiankangtiyu.com/dy-heat/studentEntrance/selectAttendance/' + time)
-        await this.getLineData('http://t.jiankangtiyu.com/dy-heat/studentEntranceStatistics/getStudentEntranceStatistics/' + time)
+        await this.getkQData('api/dy-heat/studentEntrance/selectAttendance/' + time)
+        await this.getLineData('api/dy-heat/studentEntranceStatistics/getStudentEntranceStatistics/' + time)
 
         if (this.class_xuanzhong && this.grade_xuanzhong) {
           this.getNowLinedata(this.class_xuanzhong)

@@ -375,7 +375,7 @@
         this.flag_one++
         //先获取某个班级的数据
         if (nian) {
-          let tem_url = 'http://t.jiankangtiyu.com/dy-heat/school/getClasses/' + nian
+          let tem_url = 'api/dy-heat/school/getClasses/' + nian
 
           await that.getclassData(tem_url);
         }
@@ -410,7 +410,7 @@
             if (this.class_data[i].grade == this.value2_nian && this.class_data[i].className == d) {
               let class_id = this.class_data[i].classId
               //在获取改班级的数据
-              this.tem_url = "http://t.jiankangtiyu.com/dy-heat/studentHeat/getStudentRealTimeHeat/" + class_id
+              this.tem_url = "api/dy-heat/studentHeat/getStudentRealTimeHeat/" + class_id
               // this.tem_url ="121.196.59.238/dy-heat/studentHeat/getStudentRealTimeHeat/9391"
               break
             }
@@ -418,7 +418,7 @@
         }
 
         // console.log(this.tem_url)
-        // this.tem_url ="http://t.jiankangtiyu.com/dy-heat/studentHeat/getStudentRealTimeHeat/9391"
+        // this.tem_url ="api/dy-heat/studentHeat/getStudentRealTimeHeat/9391"
         this.getData(this.tem_url,tim)
 
       },
