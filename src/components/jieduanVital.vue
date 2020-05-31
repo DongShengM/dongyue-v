@@ -592,8 +592,6 @@
             "statisticsDateStart":start,
             "statisticsDateEnd":end,
           }
-
-          console.log('aaddad')
           //进出校记录  饼图
           this.getNewKQTable(canshu)
           this.getkQPHdata(canshu)
@@ -607,14 +605,14 @@
         },
         //当前考勤排行
         async getkQPHdata(date) {
-          let pdata = await this.$axios.post("api/dy-heat/studentClassAttendance/getStudentClassAttendanceList", date)
+          let pdata = await this.$axios.post("api/studentClassAttendance/getStudentClassAttendanceList", date)
           this.table_data_k = await pdata.data
           console.log(this.table_data_k)
         },
         async getNewKQTable(date) {
 
           //date 的形式  yyyy-MM-dd
-          let pdata = await this.$axios.post("api/dy-heat/studentClassAttendance/getStudentClassAttendanceSum", date)
+          let pdata = await this.$axios.post("api/studentClassAttendance/getStudentClassAttendanceSum", date)
 
           let da= await pdata.data
           let changepie_data

@@ -631,12 +631,21 @@
 
 
       //考勤数据
-      async getkQData(url) {
+      async getkQData(date) {
         try {
-          let resdate = await this.$axios.get(url)
+          let resdate = await this.$axios.post("api/studentClassAttendance/getStudentClassAttendanceSum", date)
 
           this.kqTJData = await resdate.data
           console.log(resdate.data)
+
+          let first_p = [
+            {value: resdate.data.normal, name: '正常'},
+            {value: resdate.data.leaveEarly, name: '早退'},
+            {value: resdate.data.absenteeism, name: '缺勤'},
+            {value: resdate.data.late, name: '迟到'}
+          ]
+          // this.piedata = first_p
+          this.updataPieChart(first_p)
 
         } catch (err) {
           // alert('考勤数据请求报错')
@@ -662,7 +671,7 @@
       //详细记录表的数据
       async getXXTable(date) {
 
-        let pdata = await this.$axios.post("api/dy-heat/studentEntrance/getStudentEntrance", date)
+        let pdata = await this.$axios.post("api/studentEntrance/getStudentEntrance", date)
 
         this.total_table= await pdata.data
 
@@ -717,7 +726,7 @@
       async getNavData() {
         try {
           let that = this
-          let resdate = await this.$axios.get('api/dy-heat/school/getSchoolInfo')
+          let resdate = await this.$axios.get('api/school/getSchoolInfo')
 
           that.school_info = await resdate.data
           that.grade_xuanzhong = that.school_info[0].grade
@@ -753,7 +762,7 @@
           }
           this.getXXTable(date_1)
           this.getNowLinedata(class_n)   //根据班级id 换此时线图数据数据
-          this.getNowkQdata(class_n)   //根据班级id 换考勤统计数据
+          this.getkQData(date_1)   //根据班级id 换考勤统计数据
         }
 
 
@@ -786,13 +795,14 @@
             detectTimeEnd: new Date(y*1, m*1-1, d*1+1, 7, 59, 59)
           }
           this.getXXTable(date_2)
+          await this.getkQData(date_2)
         }
-        await this.getkQData('api/dy-heat/studentEntrance/selectAttendance/' + time)
-        await this.getLineData('api/dy-heat/studentEntranceStatistics/getStudentEntranceStatistics/' + time)
+
+        await this.getLineData('api/studentEntranceStatistics/getStudentEntranceStatistics/' + time)
 
         if (this.class_xuanzhong && this.grade_xuanzhong) {
           this.getNowLinedata(this.class_xuanzhong)
-          this.getNowkQdata(this.class_xuanzhong)
+          // this.getNowkQdata(this.class_xuanzhong)
         }
       },
       slicdata_j(){

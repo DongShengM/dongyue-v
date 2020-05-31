@@ -332,7 +332,7 @@
         //初始化下拉菜单
         async initializationSelect(){
             //清空班级
-          let Response = await this.$axios.get("api/dy-heat/school/getSchoolInfo");
+          let Response = await this.$axios.get("api/school/getSchoolInfo");
           let allData = [];
           Response.data.forEach((e,i)=>{
             allData.push({
