@@ -122,6 +122,14 @@
     },
     created(){
       console.log('000')
+      // let str = window.location.search
+      let str ='?token=0809ad5b1421a2f3c6b2edefa59b1be5'
+      console.log(str)
+      let index = str.lastIndexOf("\=")
+
+      console.log(str.substring(index+1,str.length))
+
+      window.localStorage["token"]= str.substring(index+1,str.length)
     },
 
     beforeMount(){
