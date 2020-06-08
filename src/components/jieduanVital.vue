@@ -24,6 +24,11 @@
           </el-date-picker>
         </div>
       </div>
+      <div class="nav_box" style="width: 10%">
+        <el-button style="width: 100%" plain type="primary"@click="testCheck">
+          查询
+        </el-button>
+      </div>
       <!--<div class="nav_box">-->
 
       <!--</div>-->
@@ -31,7 +36,7 @@
 
   </div>
 
-  <div class=" " style="padding: 0 20px">
+  <div class=" " style="padding:10px 10px 20px 20px; overflow:auto">
     <div class="new_jieduan_box">
       <div class="jiduanbox_child">
         <div class="title_zhihui t_l">
@@ -39,7 +44,7 @@
             <span class="mr20 f16">{{$t('zhiHuiSchool.all_share.tiwentongji')}}</span>
           </div>
           </div>
-        <div class="wendu_togji info_nox" >
+        <div class="wendu_togji info_nox" style="height: 300px" >
         </div>
       </div>
       <div class="jiduanbox_child">
@@ -48,7 +53,7 @@
             <span class="mr20 f16">{{$t('zhiHuiSchool.all_share.jichuxiaojilu')}}</span>
           </div>
           </div>
-        <div class="cb_school info_nox"  >
+        <div class="cb_school info_nox" style="height: 300px" >
         </div>
       </div>
       <div class="jiduanbox_child">
@@ -58,13 +63,23 @@
           </div>
         </div>
         <div class="info_nox">
-          <el-table  :data="table_data_cl"
+          <el-table  :data="slicdata_e()"
                      style="width: 100%" :show-header="false" >
-            <el-table-column align="center" property="date" label="姓名" :max-height="20"></el-table-column>
-            <el-table-column align="center" property="name" label="性别" :max-height="20"></el-table-column>
-            <el-table-column align="center" property="name" label="体温" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="className" label="班级" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="studentNum" label="人数" :max-height="20"></el-table-column>
           </el-table>
         </div>
+
+        <div class="col-16-16 t_c">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :page-size="pagesize"
+            :total="this.allPage_e"
+            @current-change="current_change_e">
+          </el-pagination>
+        </div>
+
       </div>
       <div class="jiduanbox_child">
         <div class="title_zhihui t_l">
@@ -72,8 +87,8 @@
             <span class="mr20 f16">{{$t('zhiHuiSchool.jieduantongji.kaoqinpaihang')}}</span>
           </div>
         </div>
-        <div class="info_nox" style="height: 260px">
-          <el-table  :data="slicdata_mx()"
+        <div class="info_nox" >
+          <el-table  :data="this.table_data_k"
                      style="width: 100%" :show-header="false" >
             <el-table-column align="center" type="index" width="50"></el-table-column>
             <el-table-column align="center" property="grade" label="班级" :max-height="20">
@@ -122,6 +137,61 @@
         name: "TemperatureVital",
       data(){
           return{
+            //体温统计
+            //正常学生
+            normalStudent:10,
+            //异常学生
+            abnormalStudent:12,
+            //总测试
+            allTest:13,
+            //总学生
+            allStudent:100,
+            //总异常
+            allAbnormal:15,
+            //在校生
+            inSchoolStudent:30,
+            //查出来的学生正常和异常的人数
+            wendunum:[
+              {value:10,name:'正常'},
+              {value:10,name:'异常'}
+            ],
+            //左边图的总人数
+            leftChartNum:0,
+
+            //进出校记录
+            sim_data:[
+              {value:666, name:'正常'},
+              {value:135, name:'早退'},
+              {value:134, name:'缺勤'},
+              {value:135, name:'迟到'}
+
+            ],
+
+            //体温异常班级
+            table_data_cl:[{
+              className: '一年级一班',
+              studentNum: '13',
+            }, {
+              className: '一年级一班',
+              studentNum: '15',
+            }, {
+              className: '一年级一班',
+              studentNum: '12',
+            }, {
+              className: '一年级一班',
+              studentNum: '17',
+            }],
+
+            //分页 数据
+            total_table_e:[],
+            //每页条数
+            pagesize_e:5,
+            //翻到的页数
+            currentPage_e: 1,
+            //总页数
+            allPage_e:4,
+
+            testData:"",
             totalTestPeople:2500,
             inSchoolPeople:500,
             totalBadPeople:51,
@@ -134,16 +204,9 @@
             kaoQinInfo:[[],[],[],[]],
 
             pieChart:null,
-            sim_data:[
-              {value:666, name:'正常'},
-              {value:135, name:'早退'},
-              {value:134, name:'缺勤'},
-              {value:135, name:'迟到'}
+            pieChart2:null,
 
-            ],
-            wendunum:[
-              {value:10,name:'正常'},
-              {value:10,name:'异常'}],
+
 
             value_time:'',
 
@@ -152,7 +215,7 @@
 
             pagesize: 5,//每页的数据条数
 
-            currentPage: 1,//默认开始页面}
+            currentPage_e: 1,//默认开始页面}
             table_data_k:[{
                     "studentClassAttendanceId": 19,
                     "classId": 9391,  //班级id
@@ -164,36 +227,100 @@
                     "leaveEarly": 0,  //早退
                     "absenteeism": 55,  //缺勤
                     "normal": 0,  //正常
-                }],
-            table_data_cl:[{
-              date: '2016-05-02',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-              date: '2016-05-04',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-              date: '2016-05-03',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }]
+                }]
         }
       },
       mounted(){
-
+        this.getTemperatureTotal();
         //圆
-        this.pie_sim($('.cb_school')[0],this.sim_data)
+        this.getEntranceSchool();
 
-        this.pie_wendu($('.wendu_togji')[0],100,70,30,30,this.wendunum)
+        //体温异常班级获取
+        this.getAbnormalClassInfo();
 
+        window.onresize = ()=>{
+          this.pieChart.resize();
+          this.pieChart2.resize();
+        }
       },
       methods:{
+        //获取体温统计
+        async getTemperatureTotal(){
+          try {
+            let data = {
+              "startTime": "2020-04-28T00:00",
+              "endTime": "2020-04-29T00:00"
+            }
+            let Response = await this.$axios.post("/studentHeat/statisticsStudentHeat",data);
+            console.log(Response.data.studentTotalCount);
+              //测试接口
+            //let Response = await this.$axios.get("http://rap2.taobao.org:38080/app/mock/255345/temperatureTotal");
+            this.allStudent = Response.data.studentTotalCount;
 
+            this.allAbnormal = Response.data.highTemperatureCount;
+            this.allTest = Response.data.studentHeatCount;
+            this.inSchoolStudent = Response.data.studentTotalCount;
+            this.leftChartNum = Response.data.highTemperatureCount+Response.data.studentTotalCount+Response.data.studentHeatCount;
+            this.wendunum = [
+              {value:Response.data.normalStudentCount,name:'正常'},
+              {value:Response.data.highTemperatureCount,name:'异常'}
+            ];
+            console.log(Response.data.lists)
+            this.pie_wendu($('.wendu_togji')[0],this.leftChartNum,this.allAbnormal,this.inSchoolStudent,this.allTest,this.wendunum);
+          }catch (err){
+
+          }
+        },
+        //获取进出校记录统计
+        async getEntranceSchool(){
+          try {
+            let Response = await this.$axios.get("http://rap2.taobao.org:38080/app/mock/255345/entranceSchool");
+
+            this.sim_data = [
+              {value: Response.data.normalNul, name: '正常'},
+              {value: Response.data.leaveEarlyNum, name: '早退'},
+              {value: Response.data.absenceNum, name: '缺勤'},
+              {value: Response.data.lateNum, name: '迟到'}
+            ];
+
+            this.pie_sim($('.cb_school')[0], this.sim_data);
+          }catch (err){
+
+          }
+        },
+        //体温异常班级获取
+        async getAbnormalClassInfo(){
+          let data = {
+            "startTime": "2020-04-28T00:00",
+            "endTime": "2020-04-29T00:00"
+          }
+          //let Response = await this.$axios.get("http://rap2.taobao.org:38080/app/mock/255345/abnormalData");
+          let Response = await this.$axios.post("/studentHeat/getHighDegreeClass",data);
+          console.log(Response);
+          //总数据
+//          this.table_data_cl = Response.data.lists;
+//          this.allPage_e = parseInt((Response.data.lists.length));
+         //分页
+//          this.total_table_e = this.slicdata_e();
+
+        },
+        //体温异常班级分页
+        slicdata_e() {
+          return this.table_data_cl.slice((this.currentPage_e-1)*this.pagesize_e,this.currentPage_e*this.pagesize_e)
+        },
+        //考勤排行数据获取
+        current_change_e:function (currentPage) {
+          this.currentPage_e = currentPage;
+        },
+        async testCheck(){
+
+          let data = {
+            "startTime": "2020-04-28T00:00",
+            "endTime": "2020-04-29T00:00"
+           }
+          let Response = await this.$axios.post("/studentHeat/statisticsStudentHeat",data);
+          console.log(Response);
+        },
         pie_sim(div, data) {
           this.pieChart = echarts.init(div);
           let option = {
@@ -246,10 +373,11 @@
             ]
           };
           this.pieChart.setOption(option, true);
+
         },
 
         pie_wendu(div , total_people,all_bad_people,inSchool_student,add_test_people,pie_huan_data) {
-          var myChart = echarts.init(div);
+          this.pieChart2 = echarts.init(div);
           var placeHolderStyle = {
             normal: {
               label: {
@@ -282,6 +410,7 @@
            };*/
           let option = {
             backgroundColor: '#fff',
+
             color:['#96d771','#e18c9f'],
             title: [{
               left: '29.8%',
@@ -304,11 +433,11 @@
                 textAlign: 'center',
               },
             }],
-            tooltip: {
-              name:'园园',
-              trigger: 'item',
-              formatter: "{b}: {c} ({d}%)"
-            },
+//            tooltip: {
+//              name:'园园',
+//              trigger: 'item',
+//              formatter: "{b}: {c} ({d}%)"
+//            },
             legend: {
               // orient: 'vertical',
               right:' 40%',
@@ -368,7 +497,7 @@
                   value: all_bad_people,     //累计异常人数
                   itemStyle: {
                     normal: {
-                      color: '#96d771'
+                      color: '#e18c9f'
                     }
                   },
                   label: {
@@ -384,7 +513,7 @@
                     }
                   },
                 }, {
-                  value: 35,
+                  value: this.leftChartNum,
                   itemStyle: placeHolderStyle,
                 },
 
@@ -464,7 +593,7 @@
                     }
                   },
                 }, {
-                  value: 55,
+                  value: this.leftChartNum,
                   itemStyle: placeHolderStyle,
                 },
 
@@ -543,7 +672,7 @@
                     }
                   },
                 }, {
-                  value: 60,
+                  value: this.leftChartNum,
                   itemStyle: placeHolderStyle,
                 },
 
@@ -579,7 +708,7 @@
             ]
           };
           if (option && typeof option === "object") {
-            myChart.setOption(option, true);
+            this.pieChart2.setOption(option, true);
           }
         },
 
@@ -607,14 +736,14 @@
         },
         //当前考勤排行
         async getkQPHdata(date) {
-          let pdata = await this.$axios.post("api/dy-heat/studentClassAttendance/getStudentClassAttendanceList", date)
+          let pdata = await this.$axios.post("/studentClassAttendance/getStudentClassAttendanceList", date)
           this.table_data_k = await pdata.data
           console.log(this.table_data_k)
         },
         async getNewKQTable(date) {
 
           //date 的形式  yyyy-MM-dd
-          let pdata = await this.$axios.post("api/dy-heat/studentClassAttendance/getStudentClassAttendanceSum", date)
+          let pdata = await this.$axios.post("/studentClassAttendance/getStudentClassAttendanceSum", date)
 
           let da= await pdata.data
           let changepie_data
@@ -682,9 +811,10 @@
       margin-top: 10px;
       float: left;
       margin-right: 1%;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
       .info_nox{
         width: 100%;
-        height: 320px;
+        height: 260px;
       }
     }
   }

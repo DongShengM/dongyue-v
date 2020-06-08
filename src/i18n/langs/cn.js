@@ -96,6 +96,9 @@ const cn = {
       dayAvgCalories:"日均消耗卡路里",
       classData:"班级数据",
       chartTitle:"全校统计"
+    },
+    checkPosition:{
+      checkPositionTitle:"活动轨迹",
     }
   },
   ...zhLocale

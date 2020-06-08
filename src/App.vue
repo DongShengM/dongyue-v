@@ -79,6 +79,7 @@
             <router-link tag="div" class="zhuihui_btn" to="temperatureVital">{{$t('zhiHuiSchool.tiwentongji.tiwenjiankong')}}</router-link>
             <router-link tag="div" class="zhuihui_btn" to="temperatureData">{{$t('zhiHuiSchool.temperatureData.temperatureDataTitle')}}</router-link>
             <router-link tag="div" class="zhuihui_btn" to="moveStep">{{$t('zhiHuiSchool.moveStep.moveStepTitle')}}</router-link>
+            <router-link tag="div" class="zhuihui_btn" to="checkPosition">{{$t('zhiHuiSchool.checkPosition.checkPositionTitle')}}</router-link>
             <a class="f16" style="padding: 0 15px;float: right" v-on:click="toCh">{{$t('message.tw')}}</a>
             <a class="f16" style="padding: 0 15px;border-right: 1px solid #cfcfcf;float: right" v-on:click="toSimpleCh" >{{$t('message.cn')}}</a>
           </div>
@@ -88,8 +89,9 @@
           <!--<a style="padding: 0 15px" v-on:click="toCh">{{$t('message.tw')}}</a>-->
 
           <!--</div>-->
-          <router-view/>
-
+          <keep-alive>
+            <router-view/>
+          </keep-alive>
         </div>
 
       </div>
@@ -104,17 +106,23 @@
 <script>
   import newTest from './components/newTest'
   import $ from 'jquery'
+  import {getUrlParam} from '../src/common/js/getUrlParam2.js'
+  import Cookies from 'js-cookie'
+
   export default {
     name: 'App',
     components: {
-      newTest
+      newTest,
     },
     data() {
       return {
         options: {
           height: '95%',
           size: 0,
-
+          alwaysVisible:'true',
+          railVisible: 'true',
+          color: '#666666',
+          opacity:'0'
           // padding:'0 0 50px 0'
 
         }
@@ -131,7 +139,14 @@
 
       // window.localStorage["token"]= '1212'
       // http://localhost:2002/login/dy_mobile_171435_15555555116/20200521235455/f7c0502f911f0e2eee92f453f6fb7b57
-      console.log( window.location.search)
+      //console.log( window.location.search)
+
+      //如果有token就获取token并存到cookie里
+      let test = getUrlParam("token");
+      if(test){
+      Cookies.set('token',test);
+      }
+
     },
     mounted(){
 

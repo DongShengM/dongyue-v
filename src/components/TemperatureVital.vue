@@ -32,18 +32,19 @@
           </el-select>
         </div>
       </div>
-     <div class="col-4-16">&nbsp;</div>
+     <div class="col-2-16">&nbsp;</div>
 
-      <div class="col-2-16 l_h40 ">
+      <div class="col-2-16 l_h40 " >
         <!--<el-tooltip :content="$t('zhiHuiSchool.tiwentongji.tiwenyicha')" placement="bottom-start" effect="light">-->
           <i class="icon-zhongkaochengji tem-icon color-blue" @click="dialogTableVisible = true;highTempStudentInfo()"></i>
 
         <!--</el-tooltip>-->
-        <p style="margin-left: 40px;line-height: 50px">高热学生详情</p>
+        <p style="margin-left: 40px;line-height: 50px;min-width: 85px">高热学生详情</p>
         <el-dialog title="高热学生详情" :visible.sync="dialogTableVisible" v-if="have_highData" >
           <el-table :data="slicdata2()" width="80%"  max-height="300">
-            <el-table-column align="center" property="studentName" label="姓名" :max-height="20"></el-table-column>
-            <el-table-column align="center" property="name" label="性别" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="grade" label="年级" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="className"  label="班级" :max-height="20"></el-table-column>
+            <el-table-column align="center" property="studentName"  label="姓名" :max-height="20"></el-table-column>
             <el-table-column align="center" property="degree"  label="体温" :max-height="20">
               <template slot-scope="scope">
                 <span :style="{color: '#D60000'}">{{scope.row.degree/10}}</span>
@@ -82,18 +83,21 @@
       <div class="col-4-16">
         <p class="tem-p" style="line-height: 50px">{{getTime(time)}}</p>
         <!--<el-tooltip content="刷新" placement="bottom-start" effect="light">-->
-        <div class="new_icon_box "@click="updata">
-          <i class="el-icon-refresh-right tem-icon " style="margin-top: 0;color: white"  :class="{icon_re:isrefresh}"></i>
-          <p style="margin-left: 35px;line-height: 30px ;color: white;">刷新</p>
-        </div>
+
 
         <!--</el-tooltip>-->
 
       </div>
+      <div class="col-2-16">
+        <div class="new_icon_box "@click="updata">
+          <i class="el-icon-refresh-right tem-icon " style="margin-top: 0;color: white"  :class="{icon_re:isrefresh}"></i>
+          <p style="margin-left: 35px;line-height: 30px ;color: white;">刷新</p>
+        </div>
+      </div>
     </div>
 
 
-    <div class="zk-table " >
+    <div class="zk-table " style="width:100%">
       <div class="new_table-content">
 
         <div class="tep_info_box">
@@ -166,9 +170,10 @@
     name: "TemperatureVital",
     data() {
       return {
+
         time: new Date(),
-        options_grade: [{value: '11', label: '初一'}, {value: '12', label: '初二'},
-          {value: '13', label: '初三'}],
+        options_grade: [{value: '1', label: '一年级'}, {value: '2', label: '二年级'},{value: '3', label: '三年级'},
+          {value: '4', label: '四年级'},{value: '5', label: '五年级'},{value: '6', label: '六年级'}],
         options_class: [{value: '(1)班', label: '(1)班'}],
         flag_one: 0,
         flag_refresh: 0,
@@ -182,8 +187,269 @@
         juti_class:'初一一班',
         class_url: "",
         tem_url: "",
-        setup_police: [37, 37.5, 38.5],
-        total_temData: [],
+        setup_police: [37.5, 38, 38.5],
+        total_temData: [
+          {
+              //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+          {
+            //年级 - 班级 - 姓名  - 体温 - 时间
+            id: 14042,
+            studentCode: "Uq7tjHnr9KiqKGWsWf0eQDQ6HnsA6tlCnxuhQw43c+o=",
+            studentName: "李世康",
+            classId: 9391,
+            className:"1班",
+            grade: 13,
+            schoolId: 710,
+            detectTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ],
+            degree: 390,
+            deviceMac: "E365419D34BF",
+            createTime: [
+              2020,
+              5,
+              31,
+              16,
+              25
+            ]
+          },
+        ],
         total_temData_c: [{
           studentName:'刘芳菲',
           degree:378
@@ -309,8 +575,8 @@
         currentPage: 1,//默认开始页面}
         //input值
         input_g:"38.5",
-        input_d:"37",
-        input_z:"37.5",
+        input_d:"37.5",
+        input_z:"38",
 
       //  主页面分页
         total_z:0,
@@ -337,18 +603,44 @@
        for (let i=0;i<cl_data.length;i++) {
         that.options_class.push({value:cl_data[i],label:cl_data[i]})
        }*/
+      this.initializationSelect();
       this.timer = setInterval(() => {
         that.time = this.getTime(); // 修改数据date
       }, 1000)
 
       // this.updata()
-
+      this.refresh();
 
       that.wenduji_color(that.setup_police)
 
     },
     methods: {
-
+      //初始化下拉菜单
+      async initializationSelect(){
+        //清空班级
+        let Response = await this.$axios.get("/school/getSchoolInfo");
+        let allData = [];
+        Response.data.forEach((e,i)=>{
+          allData.push({
+            "value":e.grade,
+            "label":e.gradeName,
+            "classInfo":e.classInfo
+          })
+        })
+        this.options_grade = allData;
+      },
+      //定时刷新
+      refresh(){
+        setInterval(()=>{
+            if(this.value2_nian!=''&&this.value_ban!=''){
+              console.log("刷新数据");
+              this.updata();
+            }
+            else{
+                console.log("暂无数据");
+            }
+        }, 20000);
+      },
       //设置温度预警数据
       setTem_info(){
         let that = this
@@ -375,7 +667,7 @@
         this.flag_one++
         //先获取某个班级的数据
         if (nian) {
-          let tem_url = 'api/dy-heat/school/getClasses/' + nian
+          let tem_url = '/school/getClasses/' + nian
 
           await that.getclassData(tem_url);
         }
@@ -410,7 +702,7 @@
             if (this.class_data[i].grade == this.value2_nian && this.class_data[i].className == d) {
               let class_id = this.class_data[i].classId
               //在获取改班级的数据
-              this.tem_url = "api/dy-heat/studentHeat/getStudentRealTimeHeat/" + class_id
+              this.tem_url = "/studentHeat/getStudentRealTimeHeat/" + class_id
               // this.tem_url ="121.196.59.238/dy-heat/studentHeat/getStudentRealTimeHeat/9391"
               break
             }
@@ -439,7 +731,7 @@
           let Response = await this.$axios.get(url)
           this.total_temData = Response.data
 
-          console.log(this.total_temData)
+          console.log(Response)
         } catch (err) {
           console.log(err)
           alert('请求出错！')
@@ -456,6 +748,10 @@
 
       //刷新
       async updata() {
+          if(this.value2_nian==''||this.value_ban==''){
+              alert("请先查询");
+              return;
+          }
         this.flag_one = 0   //flag 使得班级不更新
         this.loading = true
         //进入页面运行了一次此方法，这里让运行的第一次跳过刷新
@@ -561,7 +857,6 @@
         else {
           this.have_highData=false
         }
-
       },
       formatterDegree_tem(row, column, cellValue){
         return cellValue/10
@@ -569,7 +864,7 @@
       formatterSelectTime(row, column, cellValue){
 
         return cellValue[0]+"年"+cellValue[1]+"月"+cellValue[2]+"日 "+
-          cellValue[3]+":"+cellValue[4]+":"+cellValue[5]
+          cellValue[3]+":"+cellValue[4]+":"+(cellValue[5]==undefined?"00":cellValue[5])
       },
       /* updata(){
         let that = this

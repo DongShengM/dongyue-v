@@ -88,6 +88,13 @@ const tw = {
       avgTemperature:"平均體溫",
       newTemperature:"最新體溫",
       detectTime:"測量時間"
+    },moveStep:{
+      moveStepTitle:"运动步数",
+      allSchoolSituation:"全校概况",
+      dayAvgSteps:"日均步数",
+      dayAvgCalories:"日均消耗卡路里",
+      classData:"班级数据",
+      chartTitle:"全校统计"
     }
   },
   ...twLocale

@@ -92,6 +92,7 @@
     name: "TemperatureData",
     data(){
           return{
+
             time: new Date(),
             value_ban: '',
             value2_nian: '',
@@ -167,9 +168,9 @@
                     "grade": this.value2_nian,
                     "classId": this.value_ban,
                     "startTime": this.value_time[0]+"T00:00",
-                    "endTime": this.value_time[1]+"T00:00"
+                    "endTime": this.value_time[1]+"T23:59"
                   }
-                  let Response = await this.$axios.post("api/studentHeat/queryStudentHeat",testData);
+                  let Response = await this.$axios.post("/studentHeat/queryStudentHeat",testData);
                   //总数
                   this.pageTotal = parseInt((Response.data.length));
                   //总数据整理
@@ -187,7 +188,7 @@
                           //学号暂时为空
                           "studentid":"",
                           "temperature":(e.degree)/10,
-                          "degreeLevel":e.degreeLevel==null?"无":"有"
+                          "degreeLevel":e.degreeLevel==0?"无":"有"
                         }
                       );
                   })
@@ -301,7 +302,7 @@
         },
 
         //数组转excel下载
-        exportToCsv(){
+         exportToCsv(){
               if(this.tableOriginData==""||this.tableOriginData==null){
                   alert("请先查询");
                   return ;
@@ -332,7 +333,7 @@
         //初始化下拉菜单
         async initializationSelect(){
             //清空班级
-          let Response = await this.$axios.get("api/dy-heat/school/getSchoolInfo");
+          let Response = await this.$axios.get("/school/getSchoolInfo");
           let allData = [];
           Response.data.forEach((e,i)=>{
             allData.push({
